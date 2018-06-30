@@ -1,4 +1,4 @@
-package com.scholarcoder.pingpongchat.client;
+package com.pingpongchat.server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,11 +23,12 @@ public class EchoClient {
         this.standardInput = new BufferedReader(new InputStreamReader(System.in));
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         EchoClient echoClient = new EchoClient("localhost",31145);
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         String line;
+
         do {
             System.out.println("Enter something:");
             line = bufferedReader.readLine();
