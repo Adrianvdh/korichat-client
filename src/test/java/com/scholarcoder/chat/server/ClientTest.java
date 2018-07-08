@@ -1,6 +1,6 @@
-package com.pingpongchat.server;
+package com.scholarcoder.chat.server;
 
-import com.pingpongchat.server.user.UserRepositorySingleton;
+import com.scholarcoder.chat.server.user.UserRepositorySingleton;
 import org.junit.*;
 
 public class ClientTest {
