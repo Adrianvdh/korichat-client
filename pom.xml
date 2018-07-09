@@ -28,11 +28,11 @@
             <version>1.7.25</version>
         </dependency>
         <!-- Testing dependencies -->
-        <dependency>
-            <groupId>com.pingpongchat</groupId>
-            <artifactId>server</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.scholarcoder.chat</groupId>-->
+            <!--<artifactId>chat-server</artifactId>-->
+            <!--<version>1.0-SNAPSHOT</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>

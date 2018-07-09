@@ -71,10 +71,10 @@ public class Client {
     }
 
     private void connect() {
+        System.out.println("Client trying to connect");
         if(socketConnection == null) {
             try {
                 socketConnection = new Socket(hostname, port);
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
