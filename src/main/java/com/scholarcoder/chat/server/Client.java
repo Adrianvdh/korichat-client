@@ -36,17 +36,12 @@ public class Client {
             //wait for response
             StringBuilder responseBuilder = new StringBuilder();
             String inputLine;
-            try {
-                while ((inputLine = in.readLine()) != null) {
-                    responseBuilder.append(inputLine);
-                    if(!in.ready()) {
-                        break;
-                    }
-                    responseBuilder.append(System.lineSeparator());
+            while ((inputLine = in.readLine()) != null) {
+                responseBuilder.append(inputLine);
+                if (!in.ready()) {
+                    break;
                 }
-            }
-            catch(Exception t) {
-
+                responseBuilder.append(System.lineSeparator());
             }
 
             return responseBuilder.toString();
