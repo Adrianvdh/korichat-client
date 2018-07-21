@@ -26,11 +26,6 @@ public class Client {
         connect();
     }
 
-    public static void main(String[] args) {
-        Client client = new Client("localhost",31145);
-        client.start();
-    }
-
     public String sendCommand(String sentence) {
         try {
             PrintWriter out = new PrintWriter(socketConnection.getOutputStream(), true);
@@ -39,40 +34,32 @@ public class Client {
             out.println(sentence);
 
             //wait for response
+            StringBuilder responseBuilder = new StringBuilder();
             String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                return inputLine;
+            try {
+                while ((inputLine = in.readLine()) != null) {
+                    responseBuilder.append(inputLine);
+                    if(!in.ready()) {
+                        break;
+                    }
+                    responseBuilder.append(System.lineSeparator());
+                }
+            }
+            catch(Exception t) {
+
             }
 
-        } catch (IOException e) {
+            return responseBuilder.toString();
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "404 Not found";
     }
 
-    public void start() {
-        connect();
-
-        ServerListener serverListener = new ServerListener(socketConnection);
-        serverListener.start();
-
-        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        String line;
-        System.out.println("What's your username?");
-        try {
-            do {
-                line = in.readLine();
-                sendCommand(line);
-            }
-            while(line != null);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     private void connect() {
         System.out.println("Client trying to connect");
-        if(socketConnection == null) {
+        if (socketConnection == null) {
             try {
                 socketConnection = new Socket(hostname, port);
             } catch (IOException e) {
