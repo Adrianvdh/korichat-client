@@ -22,8 +22,6 @@ public class Client {
         this.port = port;
         this.executorService = Executors.newFixedThreadPool(4);
         this.standardInput = new BufferedReader(new InputStreamReader(System.in));
-
-        connect();
     }
 
     public String sendCommand(String sentence) {
