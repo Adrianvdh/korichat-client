@@ -50,7 +50,7 @@ public class Client {
         return "404 Not found";
     }
 
-    private void connect() {
+    public void connect() {
         System.out.println("Client trying to connect");
         if (socketConnection == null) {
             try {
@@ -59,5 +59,15 @@ public class Client {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void disconnect() {
+        System.out.println("Client trying to disconnect");
+        try {
+            socketConnection.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        socketConnection=null;
     }
 }
