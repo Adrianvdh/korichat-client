@@ -1,4 +1,4 @@
-package com.scholarcoder.chat.server;
+package com.scholarcoder.chat.client;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,4 +1,7 @@
-package com.scholarcoder.chat.server;
+package com.scholarcoder.chat.client;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,6 +12,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Client {
+    private Logger logger = LoggerFactory.getLogger(Client.class);
+
     final String hostname;
     final int port;
 
@@ -45,13 +50,13 @@ public class Client {
             return responseBuilder.toString();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("An error occurred when sending the command", e);
         }
         return "404 Not found";
     }
 
     public void connect() {
-        System.out.println("Client trying to connect");
+        logger.info("Client trying to connect to server {}:{}", hostname, port);
         if (socketConnection == null) {
             try {
                 socketConnection = new Socket(hostname, port);
@@ -62,7 +67,7 @@ public class Client {
     }
 
     public void disconnect() {
-        System.out.println("Client trying to disconnect");
+        logger.info("Client trying to disconnect from server");
         try {
             socketConnection.close();
         } catch (IOException e) {
