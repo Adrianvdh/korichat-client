@@ -1,4 +1,4 @@
-package com.scholarcoder.chat.client;
+package org.korichat.client;
 
 import org.korichat.messaging.AckMessage;
 import org.korichat.messaging.Callback;
@@ -21,8 +21,8 @@ import java.util.List;
 import java.util.concurrent.*;
 import java.util.function.Consumer;
 
-public class AsyncClient {
-    private Logger logger = LoggerFactory.getLogger(Client.class);
+public class MessagingClient {
+    private Logger logger = LoggerFactory.getLogger(MessagingClient.class);
 
     final String hostname;
     final int port;
@@ -31,14 +31,14 @@ public class AsyncClient {
     private ObjectOutputStream outputStream;
     private ObjectInputStream inputStream;
 
-    private ExecutorService executorService = Executors.newSingleThreadExecutor();
+    private ExecutorService executorService = Executors.newCachedThreadPool();
 
     private Consumer<AckMessage> onConnect;
 
     private List<String> unAckedMessageIds = new ArrayList<>();
     private List<String> subscribedTopics = new ArrayList<>();
 
-    public AsyncClient(String hostname, int port) {
+    public MessagingClient(String hostname, int port) {
         this.hostname = hostname;
         this.port = port;
     }
@@ -231,6 +231,7 @@ public class AsyncClient {
         long start = System.currentTimeMillis();
         long remaining;
         List<Message> messages = new ArrayList<>();
+        boolean complete;
         do {
             for (String topic : subscribedTopics) {
                 try {
@@ -256,10 +257,11 @@ public class AsyncClient {
                     e.printStackTrace();
                 }
             }
+            complete = true;
 
             long elapsed = System.currentTimeMillis() - start;
             remaining = timeoutMillis - elapsed;
-        } while (remaining > 0);
+        } while (remaining > 0 && !complete);
 
 
         return messages;
